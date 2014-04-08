@@ -7,7 +7,7 @@ class KeySet < Set
 
 
     if existing=@store.send(:read_entry, @store_key, {})
-      super(YAML.load(existing.value))
+      super(YAML.load(existing.to_s))
     else
       super([])
     end
@@ -31,7 +31,7 @@ class KeySet < Set
   alias_method_chain :delete, :cache
 
   def clear_with_cache
-    clear_without_cache(value)
+    clear_without_cache
   ensure
     store
   end
